@@ -195,7 +195,7 @@
             gap: 24px;
         }
         /* YouTube background video */
-
+        
         .stage-video {
             position: absolute;
             inset: 0;
@@ -203,13 +203,13 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0;
-            transition: opacity 1.2s ease;
+            transition: opacity 0.5s ease;
         }
-
+        
         .stage-video.is-ready {
             opacity: 1;
         }
-
+        
         .stage-video iframe {
             position: absolute;
             top: 50%;
@@ -218,28 +218,25 @@
             border: 0;
             aspect-ratio: 16 / 9;
             min-width: 100%;
-            min-height: calc(100% / 0.84);
+            min-height: calc(100% / 0.80);
             pointer-events: none;
         }
-
+        
         .stage-video::after {
             content: "";
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background:
-                linear-gradient(to bottom, rgba(10, 79, 135, 0) 55%, rgba(10, 79, 135, .95) 92%, rgba(14, 58, 102, 1) 100%),
-                linear-gradient(135deg, rgba(10, 79, 135, .45) 0%, rgba(19, 114, 186, .35) 55%, rgba(14, 58, 102, .55) 100%),
-                rgba(0, 0, 0, .35);
+            background: linear-gradient(to bottom, rgba(10, 79, 135, 0) 55%, rgba(10, 79, 135, .95) 92%, rgba(14, 58, 102, 1) 100%), linear-gradient(135deg, rgba(10, 79, 135, .45) 0%, rgba(19, 114, 186, .35) 55%, rgba(14, 58, 102, .55) 100%), rgba(0, 0, 0, .35);
         }
-
+        
         @media (prefers-reduced-motion: reduce) {
             .stage-video {
                 display: none;
             }
         }
         /* Animated blobs */
-
+        
         .blob {
             position: absolute;
             border-radius: 50%;
@@ -961,13 +958,8 @@
             <div class="grid-overlay"></div>
 
             <div class="stage-video" id="stageVideo">
-                <iframe
-                    src="https://www.youtube-nocookie.com/embed/f1w8791XckI?autoplay=1&mute=1&loop=1&playlist=f1w8791XckI&controls=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&iv_load_policy=3&rel=0"
-                    title="Background video"
-                    allow="autoplay; encrypted-media"
-                    allowfullscreen
-                    loading="eager"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.youtube-nocookie.com/embed/f1w8791XckI?autoplay=1&mute=1&loop=1&playlist=f1w8791XckI&controls=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&iv_load_policy=3&rel=0" title="Background video" allow="autoplay; encrypted-media"
+                    allowfullscreen loading="eager" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <div class="stage-content">
@@ -1110,19 +1102,19 @@
     </footer>
 
     <script>
-        (function () {
+        (function() {
             var wrap = document.getElementById('stageVideo');
             if (!wrap) return;
             var iframe = wrap.querySelector('iframe');
             var done = false;
-            var ready = function () {
+            var ready = function() {
                 if (done) return;
                 done = true;
                 wrap.classList.add('is-ready');
                 clearTimeout(timer);
             };
             iframe.addEventListener('load', ready);
-            var timer = setTimeout(function () {
+            var timer = setTimeout(function() {
                 if (!done) wrap.parentNode && wrap.parentNode.removeChild(wrap);
             }, 4000);
         })();
