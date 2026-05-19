@@ -209,15 +209,19 @@
         .video-bg.is-ready { opacity: 1; }
         .video-bg iframe {
             position: absolute;
-            top: 50%;
+            top: 0;                    /* anchor to TOP of stage — no blue gap above */
             left: 50%;
-            width: 100vw;
-            height: 56.25vw;          /* 16:9 based on width */
-            min-width: 177.78vh;      /* 16:9 based on height */
-            min-height: 100%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             border: 0;
-            pointer-events: none;
+            pointer-events: none;      /* block all control interaction */
+            /* width/height set by JS to "cover" the stage */
+        }
+        /* Invisible shield above the iframe to absolutely guarantee no clicks reach YT */
+        .video-bg .video-shield {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;      /* visual only; layered above iframe */
         }
         .video-bg::after {
             /* darkening + brand tint overlay */
@@ -841,16 +845,42 @@
                     referrerpolicy="strict-origin-when-cross-origin"
                     loading="lazy"
                     tabindex="-1"></iframe>
+                <div class="video-shield"></div>
             </div>
             <script>
                 (function () {
                     var wrap = document.getElementById('videoBg');
                     var ifr = document.getElementById('ytBg');
-                    if (!wrap || !ifr) return;
+                    var stage = wrap && wrap.parentElement;
+                    if (!wrap || !ifr || !stage) return;
+
+                    // Size iframe to "cover" the stage box, anchored to top.
+                    // Overflow goes to the bottom (where the chat-preview overlays anyway).
+                    var RATIO = 16 / 9;
+                    function fit() {
+                        var w = stage.clientWidth;
+                        var h = stage.clientHeight;
+                        if (!w || !h) return;
+                        var iw, ih;
+                        if (w / h > RATIO) {
+                            // stage is wider than 16:9 → match width, height overflows
+                            iw = w; ih = w / RATIO;
+                        } else {
+                            // stage is taller than 16:9 → match height, width overflows
+                            ih = h; iw = h * RATIO;
+                        }
+                        ifr.style.width  = iw + 'px';
+                        ifr.style.height = ih + 'px';
+                    }
+                    fit();
+                    window.addEventListener('resize', fit, { passive: true });
+                    if (window.ResizeObserver) new ResizeObserver(fit).observe(stage);
+
+                    // Reveal once the iframe document loads.
                     var ready = false;
-                    // Mark ready once the iframe document loads (no guarantee video plays, but it's loaded).
                     ifr.addEventListener('load', function () {
                         ready = true;
+                        fit();
                         wrap.classList.add('is-ready');
                     });
                     // Fallback: if it doesn't load in 4s (offline, blocked, ad-blocker), hide and keep the gradient.
