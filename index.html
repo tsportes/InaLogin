@@ -10,10 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-
-    <link rel="stylesheet" href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
-
     <!-- DS Gov — web component br-sign-in (fonts/tokens included in Shadow DOM) -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@govbr-ds/webcomponents/dist/webcomponents/webcomponents.esm.js"></script>
 
@@ -74,6 +70,8 @@
             --muted: #6B7B8C;
             --bg: #F4F8FC;
             --white: #ffffff;
+            --govbr-blue: #1351B4;
+            --govbr-yellow: #FFCD07;
             --radius: 18px;
             --shadow: 0 30px 60px -20px rgba(10, 79, 135, 0.25);
         }
@@ -195,60 +193,6 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 24px;
-        }
-        /* ===== YouTube background video ===== */
-        
-        .video-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 1.2s ease;
-            z-index: 0;
-        }
-        
-        .video-bg.is-ready {
-            opacity: 1;
-        }
-        
-        .video-bg iframe {
-            position: absolute;
-            top: -200px;
-            /* anchor to TOP of stage — no blue gap above */
-            left: 50%;
-            transform: translateX(-50%);
-            border: 0;
-            pointer-events: none;
-            /* block all control interaction */
-            /* width/height set by JS to "cover" the stage */
-        }
-        /* Invisible shield above the iframe to absolutely guarantee no clicks reach YT */
-        
-        .video-bg .video-shield {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            /* visual only; layered above iframe */
-        }
-        
-        .video-bg::after {
-            /* darkening + brand tint overlay */
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(10, 79, 135, .55) 0%, rgba(19, 114, 186, .35) 55%, rgba(14, 58, 102, .65) 100%), rgba(0, 0, 0, .45);
-            pointer-events: none;
-        }
-        /* Keep stage content & chat above video layer */
-        
-        .stage>.stage-content,
-        .stage>.chat-preview,
-        .stage>.blob,
-        .stage>.grid-overlay {
-            position: relative;
-            z-index: 1;
         }
         /* Animated blobs */
         
@@ -593,6 +537,125 @@
             line-height: 1.55;
             margin: 0 0 36px;
         }
+        /* GovBr button */
+        
+        .gov-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 24px;
+            background: var(--govbr-blue);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            transition: transform .15s, box-shadow .25s, background .2s;
+            box-shadow: 0 14px 30px -10px rgba(19, 81, 180, 0.55);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gov-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, .25) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform .8s;
+        }
+        
+        .gov-btn:hover {
+            transform: translateY(-2px);
+            background: #0E429C;
+            box-shadow: 0 22px 40px -10px rgba(19, 81, 180, 0.7);
+        }
+        
+        .gov-btn:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .gov-logo {
+            background: var(--govbr-yellow);
+            color: var(--govbr-blue);
+            font-weight: 900;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        
+        .gov-logo .br {
+            color: #111;
+        }
+        
+        .arrow {
+            margin-left: auto;
+            transition: transform .2s;
+        }
+        
+        .gov-btn:hover .arrow {
+            transform: translateX(4px);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 26px 0;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, .1), transparent);
+        }
+        
+        .alt-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .alt-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            background: white;
+            color: var(--ink-soft);
+            border: 1.5px solid #E3EBF3;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        
+        .alt-btn:hover {
+            border-color: var(--caesb-blue);
+            color: var(--caesb-blue);
+            transform: translateY(-1px);
+        }
+        
+        .alt-btn svg {
+            width: 16px;
+            height: 16px;
+        }
         
         .legal {
             font-size: 12px;
@@ -848,57 +911,6 @@
 
         <!-- LEFT: IMMERSIVE STAGE -->
         <div class="stage">
-            <!-- YouTube background (muted, looped). Falls back to gradient+blobs if it fails to load. -->
-            <div class="video-bg" id="videoBg" aria-hidden="true">
-                <iframe id="ytBg" src="https://www.youtube-nocookie.com/embed/f1w8791XckI?autoplay=1&mute=1&controls=0&loop=1&playlist=f1w8791XckI&playsinline=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&showinfo=0&enablejsapi=1" title="Iná — vídeo de fundo"
-                    allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" tabindex="-1"></iframe>
-                <div class="video-shield"></div>
-            </div>
-            <script>
-                (function() {
-                    var wrap = document.getElementById('videoBg');
-                    var ifr = document.getElementById('ytBg');
-                    var stage = wrap && wrap.parentElement;
-                    if (!wrap || !ifr || !stage) return;
-
-                    // Iframe width is locked to the stage width (no horizontal overflow).
-                    // Height follows 16:9. Vertical offset is handled by CSS (top:-200px),
-                    // which still crops YouTube's caption/branding strip at the bottom.
-                    var RATIO = 16 / 9;
-
-                    function fit() {
-                        var w = stage.clientWidth;
-                        if (!w) return;
-                        var iw = w;
-                        var ih = w / RATIO;
-                        ifr.style.width = iw + 'px';
-                        ifr.style.height = ih + 'px';
-                    }
-                    fit();
-                    window.addEventListener('resize', fit, {
-                        passive: true
-                    });
-                    if (window.ResizeObserver) new ResizeObserver(fit).observe(stage);
-
-                    // Reveal once the iframe document loads.
-                    var ready = false;
-                    ifr.addEventListener('load', function() {
-                        ready = true;
-                        fit();
-                        wrap.classList.add('is-ready');
-                    });
-                    // Fallback: if it doesn't load in 4s (offline, blocked, ad-blocker), hide and keep the gradient.
-                    setTimeout(function() {
-                        if (!ready) {
-                            wrap.parentNode && wrap.parentNode.removeChild(wrap);
-                        }
-                    }, 4000);
-                    // Honor reduced-motion users.
-                    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                        wrap.parentNode && wrap.parentNode.removeChild(wrap);
-                    }
-                })();
-            </script>
             <div class="blob blob-1"></div>
             <div class="blob blob-2"></div>
             <div class="blob blob-3"></div>
@@ -954,25 +966,13 @@
                     A autenticação é feita pelo serviço unificado do Governo Federal. Use seu CPF e senha do gov.br para acessar a Iná com total segurança.
                 </p>
 
-                <!-- Botão gov.br — spec: componentes-signin/tipo-externo-com-texto -->
-                <br-sign-in id="btn-govbr" type="primary" density="middle" label="Entrar com" entity="gov.br" role="link" tabindex="0" style="cursor:pointer"></br-sign-in>
-                <script>
-                    (function() {
-                        var TARGET = 'https://ina.caesb.df.gov.br';
-                        var btn = document.getElementById('btn-govbr');
-                        if (!btn) return;
-                        var go = function() {
-                            window.location.href = TARGET;
-                        };
-                        btn.addEventListener('click', go);
-                        btn.addEventListener('keydown', function(e) {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault();
-                                go();
-                            }
-                        });
-                    })();
-                </script>
+                <a href="https://ina.caesb.df.gov.br/" class="gov-btn" target="_blank" rel="noopener">
+                    <span class="gov-logo">gov<span class="br">.br</span></span>
+                    <span>Entrar com gov.br</span>
+                    <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+                </a>
 
                 <p class="legal">
                     Ao continuar, você concorda com os <a href="#">Termos de Uso</a> e a
