@@ -197,6 +197,7 @@
             gap: 24px;
         }
         /* ===== YouTube background video ===== */
+        
         .video-bg {
             position: absolute;
             inset: 0;
@@ -206,38 +207,49 @@
             transition: opacity 1.2s ease;
             z-index: 0;
         }
-        .video-bg.is-ready { opacity: 1; }
+        
+        .video-bg.is-ready {
+            opacity: 1;
+        }
+        
         .video-bg iframe {
             position: absolute;
-            top: 0;                    /* anchor to TOP of stage — no blue gap above */
+            top: -200px;
+            /* anchor to TOP of stage — no blue gap above */
             left: 50%;
             transform: translateX(-50%);
             border: 0;
-            pointer-events: none;      /* block all control interaction */
+            pointer-events: none;
+            /* block all control interaction */
             /* width/height set by JS to "cover" the stage */
         }
         /* Invisible shield above the iframe to absolutely guarantee no clicks reach YT */
+        
         .video-bg .video-shield {
             position: absolute;
             inset: 0;
             z-index: 2;
-            pointer-events: none;      /* visual only; layered above iframe */
+            pointer-events: none;
+            /* visual only; layered above iframe */
         }
+        
         .video-bg::after {
             /* darkening + brand tint overlay */
             content: '';
             position: absolute;
             inset: 0;
-            background:
-                linear-gradient(135deg, rgba(10,79,135,.55) 0%, rgba(19,114,186,.35) 55%, rgba(14,58,102,.65) 100%),
-                rgba(0, 0, 0, .45);
+            background: linear-gradient(135deg, rgba(10, 79, 135, .55) 0%, rgba(19, 114, 186, .35) 55%, rgba(14, 58, 102, .65) 100%), rgba(0, 0, 0, .45);
             pointer-events: none;
         }
         /* Keep stage content & chat above video layer */
-        .stage > .stage-content,
-        .stage > .chat-preview,
-        .stage > .blob,
-        .stage > .grid-overlay { position: relative; z-index: 1; }
+        
+        .stage>.stage-content,
+        .stage>.chat-preview,
+        .stage>.blob,
+        .stage>.grid-overlay {
+            position: relative;
+            z-index: 1;
+        }
         /* Animated blobs */
         
         .blob {
@@ -838,54 +850,48 @@
         <div class="stage">
             <!-- YouTube background (muted, looped). Falls back to gradient+blobs if it fails to load. -->
             <div class="video-bg" id="videoBg" aria-hidden="true">
-                <iframe id="ytBg"
-                    src="https://www.youtube-nocookie.com/embed/f1w8791XckI?autoplay=1&mute=1&controls=0&loop=1&playlist=f1w8791XckI&playsinline=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&showinfo=0&enablejsapi=1"
-                    title="Iná — vídeo de fundo"
-                    allow="autoplay; encrypted-media"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    loading="lazy"
-                    tabindex="-1"></iframe>
+                <iframe id="ytBg" src="https://www.youtube-nocookie.com/embed/f1w8791XckI?autoplay=1&mute=1&controls=0&loop=1&playlist=f1w8791XckI&playsinline=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&showinfo=0&enablejsapi=1" title="Iná — vídeo de fundo"
+                    allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" tabindex="-1"></iframe>
                 <div class="video-shield"></div>
             </div>
             <script>
-                (function () {
+                (function() {
                     var wrap = document.getElementById('videoBg');
                     var ifr = document.getElementById('ytBg');
                     var stage = wrap && wrap.parentElement;
                     if (!wrap || !ifr || !stage) return;
 
-                    // Size iframe to "cover" the stage box, anchored to top.
-                    // Overflow goes to the bottom (where the chat-preview overlays anyway).
+                    // Iframe width is locked to the stage width (no horizontal overflow).
+                    // Height follows 16:9. Vertical offset is handled by CSS (top:-200px),
+                    // which still crops YouTube's caption/branding strip at the bottom.
                     var RATIO = 16 / 9;
+
                     function fit() {
                         var w = stage.clientWidth;
-                        var h = stage.clientHeight;
-                        if (!w || !h) return;
-                        var iw, ih;
-                        if (w / h > RATIO) {
-                            // stage is wider than 16:9 → match width, height overflows
-                            iw = w; ih = w / RATIO;
-                        } else {
-                            // stage is taller than 16:9 → match height, width overflows
-                            ih = h; iw = h * RATIO;
-                        }
-                        ifr.style.width  = iw + 'px';
+                        if (!w) return;
+                        var iw = w;
+                        var ih = w / RATIO;
+                        ifr.style.width = iw + 'px';
                         ifr.style.height = ih + 'px';
                     }
                     fit();
-                    window.addEventListener('resize', fit, { passive: true });
+                    window.addEventListener('resize', fit, {
+                        passive: true
+                    });
                     if (window.ResizeObserver) new ResizeObserver(fit).observe(stage);
 
                     // Reveal once the iframe document loads.
                     var ready = false;
-                    ifr.addEventListener('load', function () {
+                    ifr.addEventListener('load', function() {
                         ready = true;
                         fit();
                         wrap.classList.add('is-ready');
                     });
                     // Fallback: if it doesn't load in 4s (offline, blocked, ad-blocker), hide and keep the gradient.
-                    setTimeout(function () {
-                        if (!ready) { wrap.parentNode && wrap.parentNode.removeChild(wrap); }
+                    setTimeout(function() {
+                        if (!ready) {
+                            wrap.parentNode && wrap.parentNode.removeChild(wrap);
+                        }
                     }, 4000);
                     // Honor reduced-motion users.
                     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -951,14 +957,19 @@
                 <!-- Botão gov.br — spec: componentes-signin/tipo-externo-com-texto -->
                 <br-sign-in id="btn-govbr" type="primary" density="middle" label="Entrar com" entity="gov.br" role="link" tabindex="0" style="cursor:pointer"></br-sign-in>
                 <script>
-                    (function () {
+                    (function() {
                         var TARGET = 'https://ina.caesb.df.gov.br';
                         var btn = document.getElementById('btn-govbr');
                         if (!btn) return;
-                        var go = function () { window.location.href = TARGET; };
+                        var go = function() {
+                            window.location.href = TARGET;
+                        };
                         btn.addEventListener('click', go);
-                        btn.addEventListener('keydown', function (e) {
-                            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+                        btn.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                go();
+                            }
                         });
                     })();
                 </script>
