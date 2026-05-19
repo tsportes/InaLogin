@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iná · Atendimento Inteligente Caesb</title>
+    <link rel="icon" type="image/png" href="LOGO.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+
+    <!-- DS Gov — web component br-sign-in (fonts/tokens included in Shadow DOM) -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@govbr-ds/webcomponents/dist/webcomponents/webcomponents.esm.js"></script>
+
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Iná é a assistente virtual da Caesb. Obtenha 2ª via da conta de água, consulte consumo, verifique falta d'água e negocie débitos pelo chat — atendimento 24h, 7 dias por semana." />
+    <meta name="author" content="Caesb — Companhia de Saneamento Ambiental do Distrito Federal" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1372BA" />
+    <meta name="application-name" content="Iná Caesb" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ina.caesb.df.gov.br/" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="LOGO.png" />
+    <link rel="apple-touch-icon" href="LOGO.png" />
+
+    <!-- SEO Local — Distrito Federal -->
+    <meta name="geo.region" content="BR-DF" />
+    <meta name="geo.placename" content="Brasília, Distrito Federal" />
+    <meta name="geo.position" content="-15.7801;-47.9292" />
+    <meta name="ICBM" content="-15.7801, -47.9292" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Caesb — Iná Atendimento Inteligente" />
+    <meta property="og:url" content="https://ina.caesb.df.gov.br/" />
+    <meta property="og:title" content="Iná · Atendimento Inteligente Caesb" />
+    <meta property="og:description" content="Iná é a assistente virtual da Caesb. Obtenha 2ª via, consulte consumo, falta d'água e negocie débitos pelo chat — 24 horas por dia, 7 dias por semana." />
+    <meta property="og:image" content="https://ina.caesb.df.gov.br/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Iná — Assistente Digital da Caesb" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Iná · Atendimento Inteligente Caesb" />
+    <meta name="twitter:description" content="Iná é a assistente virtual da Caesb. Obtenha 2ª via, consulte consumo, falta d'água e negocie débitos pelo chat — 24 horas por dia, 7 dias por semana." />
+    <meta name="twitter:image" content="https://ina.caesb.df.gov.br/og-image.png" />
+    <meta name="twitter:image:alt" content="Iná — Assistente Digital da Caesb" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --caesb-blue: #1372BA;
+            --caesb-blue-dark: #0A4F87;
+            --caesb-blue-light: #3A9AE0;
+            --caesb-cyan: #5BD0F0;
+            --ink: #0B1B2B;
+            --ink-soft: #1E3146;
+            --muted: #6B7B8C;
+            --bg: #F4F8FC;
+            --white: #ffffff;
+            --radius: 18px;
+            --shadow: 0 30px 60px -20px rgba(10, 79, 135, 0.25);
+        }
+        
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--ink);
+            background: var(--bg);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* ============ TOP BAR ============ */
+        
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 40px;
+            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.65);
+            border-bottom: 1px solid rgba(19, 114, 186, 0.08);
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
+        
+        .brand img {
+            width: 38px;
+            height: 38px;
+        }
+        
+        .brand .name {
+            font-size: 20px;
+        }
+        
+        .brand .name span {
+            color: var(--caesb-blue);
+        }
+        
+        .topbar nav {
+            display: flex;
+            gap: 28px;
+        }
+        
+        .topbar nav a {
+            text-decoration: none;
+            color: var(--ink-soft);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color .2s;
+        }
+        
+        .topbar nav a:hover {
+            color: var(--caesb-blue);
+        }
+        
+        .topbar .help {
+            font-size: 13px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2ECC71;
+            box-shadow: 0 0 0 0 rgba(46, 204, 113, .6);
+            animation: pulse 1.8s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, .6);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(46, 204, 113, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+            }
+        }
+        /* ============ SPLIT HERO ============ */
+        
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            min-height: 100vh;
+            padding-top: 75px;
+        }
+        /* LEFT — IMERSIVO */
+        
+        .stage {
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(1200px 700px at 10% 110%, rgba(91, 208, 240, .35), transparent 60%), radial-gradient(900px 600px at 90% 10%, rgba(58, 154, 224, .45), transparent 55%), linear-gradient(135deg, #0A4F87 0%, #1372BA 55%, #0E3A66 100%);
+            color: white;
+            padding: 50px 70px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        /* ===== YouTube background video ===== */
+        .video-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            z-index: 0;
+        }
+        .video-bg.is-ready { opacity: 1; }
+        .video-bg iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw;          /* 16:9 based on width */
+            min-width: 177.78vh;      /* 16:9 based on height */
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            border: 0;
+            pointer-events: none;
+        }
+        .video-bg::after {
+            /* darkening + brand tint overlay */
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(10,79,135,.55) 0%, rgba(19,114,186,.35) 55%, rgba(14,58,102,.65) 100%),
+                rgba(0, 0, 0, .45);
+            pointer-events: none;
+        }
+        /* Keep stage content & chat above video layer */
+        .stage > .stage-content,
+        .stage > .chat-preview,
+        .stage > .blob,
+        .stage > .grid-overlay { position: relative; z-index: 1; }
+        /* Animated blobs */
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: .55;
+            pointer-events: none;
+        }
+        
+        .blob-1 {
+            width: 420px;
+            height: 420px;
+            background: #5BD0F0;
+            top: -120px;
+            right: -80px;
+            animation: float1 14s ease-in-out infinite;
+        }
+        
+        .blob-2 {
+            width: 360px;
+            height: 360px;
+            background: #3A9AE0;
+            bottom: -100px;
+            left: -100px;
+            animation: float2 18s ease-in-out infinite;
+        }
+        
+        .blob-3 {
+            width: 240px;
+            height: 240px;
+            background: #ffffff;
+            top: 40%;
+            left: 35%;
+            opacity: .12;
+            animation: float3 12s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(-40px, 30px) scale(1.1);
+            }
+        }
+        
+        @keyframes float2 {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, -30px) scale(1.15);
+            }
+        }
+        
+        @keyframes float3 {
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(60px, -50px);
+            }
+        }
+        /* Grid lines */
+        
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        }
+        
+        .stage-content {
+            position: relative;
+            z-index: 2;
+            max-width: 540px;
+        }
+        
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            margin-bottom: 32px;
+        }
+        
+        .eyebrow .sparkle {
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, #FFCD07, #FF9500);
+            border-radius: 50%;
+            box-shadow: 0 0 12px #FFCD07;
+        }
+        
+        .stage h1 {
+            font-size: clamp(52px, 6vw, 84px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin: 0 0 18px;
+        }
+        
+        .stage h1 .ai {
+            background: linear-gradient(135deg, #FFFFFF 0%, #5BD0F0 60%, #FFCD07 120%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .stage p.lead {
+            font-size: 16px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, .85);
+            max-width: 460px;
+            margin: 0 0 22px;
+        }
+        
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 11px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .18);
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(8px);
+        }
+        
+        .badge svg {
+            width: 12px;
+            height: 12px;
+        }
+        /* Floating chat preview */
+        
+        .chat-preview {
+            position: relative;
+            z-index: 2;
+            align-self: flex-end;
+            width: 100%;
+            max-width: 460px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .18);
+            border-radius: 20px;
+            padding: 18px 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .35);
+            margin-top: 0;
+        }
+        
+        .chat-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            margin-bottom: 12px;
+        }
+        
+        .chat-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 4px;
+        }
+        
+        .chat-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .chat-head .meta strong {
+            display: block;
+            font-size: 14px;
+            color: white;
+        }
+        
+        .chat-head .meta span {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .6);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        
+        .chat-head .meta span::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #2ECC71;
+            display: inline-block;
+        }
+        
+        .chat-msg {
+            max-width: 78%;
+            padding: 9px 13px;
+            border-radius: 14px;
+            font-size: 13px;
+            line-height: 1.45;
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: msgIn .6s forwards;
+        }
+        
+        .chat-msg.bot {
+            background: rgba(255, 255, 255, .95);
+            color: var(--ink);
+            border-bottom-left-radius: 4px;
+        }
+        
+        .chat-msg.user {
+            background: linear-gradient(135deg, var(--caesb-cyan), var(--caesb-blue-light));
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .chat-msg:nth-child(2) {
+            animation-delay: .3s;
+        }
+        
+        .chat-msg:nth-child(3) {
+            animation-delay: .9s;
+        }
+        
+        .chat-msg:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes msgIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing {
+            display: inline-flex;
+            gap: 4px;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, .95);
+            border-radius: 14px;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .typing span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--caesb-blue);
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .typing span:nth-child(2) {
+            animation-delay: .2s;
+        }
+        
+        .typing span:nth-child(3) {
+            animation-delay: .4s;
+        }
+        
+        @keyframes bounce {
+            0%,
+            80%,
+            100% {
+                transform: scale(0.6);
+                opacity: .5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        /* RIGHT — LOGIN CARD */
+        
+        .panel {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 130px 80px 60px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F4F8FC 100%);
+            position: relative;
+        }
+        
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+        }
+        
+        .login-card .welcome {
+            font-size: 14px;
+            color: var(--caesb-blue);
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        
+        .login-card h2 {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin: 0 0 14px;
+            color: var(--ink);
+        }
+        
+        .login-card .sub {
+            color: var(--muted);
+            font-size: 15.5px;
+            line-height: 1.55;
+            margin: 0 0 36px;
+        }
+        
+        .legal {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-top: 32px;
+            text-align: center;
+        }
+        
+        .legal a {
+            color: var(--caesb-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .legal a:hover {
+            text-decoration: underline;
+        }
+        /* ============ FEATURES SECTION ============ */
+        
+        .features {
+            padding: 120px 80px;
+            background: white;
+        }
+        
+        .features-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 70px;
+        }
+        
+        .features-header .kicker {
+            color: var(--caesb-blue);
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        
+        .features-header h3 {
+            font-size: clamp(36px, 4vw, 52px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin: 0 0 18px;
+            color: var(--ink);
+        }
+        
+        .features-header h3 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--caesb-blue), var(--caesb-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .features-header p {
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        
+        .feature {
+            position: relative;
+            padding: 36px 30px;
+            background: linear-gradient(180deg, #FAFCFE, #F0F6FC);
+            border: 1px solid #E3EBF3;
+            border-radius: 22px;
+            transition: all .3s;
+            overflow: hidden;
+        }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--caesb-blue), var(--caesb-cyan));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px -25px rgba(19, 114, 186, 0.3);
+            border-color: var(--caesb-blue-light);
+        }
+        
+        .feature:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--caesb-blue), var(--caesb-blue-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 24px -8px rgba(19, 114, 186, 0.5);
+        }
+        
+        .feature-icon svg {
+            width: 26px;
+            height: 26px;
+            color: white;
+        }
+        
+        .feature h4 {
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 0 0 10px;
+            color: var(--ink);
+        }
+        
+        .feature p {
+            font-size: 14.5px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+        /* ============ FOOTER ============ */
+        
+        footer {
+            padding: 40px 80px;
+            background: #0A1E33;
+            color: rgba(255, 255, 255, .6);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        footer .foot-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 600;
+        }
+        
+        footer .foot-brand img {
+            width: 28px;
+            height: 28px;
+        }
+        
+        footer .foot-links {
+            display: flex;
+            gap: 24px;
+        }
+        
+        footer .foot-links a {
+            color: rgba(255, 255, 255, .6);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        
+        footer .foot-links a:hover {
+            color: white;
+        }
+        /* ============ RESPONSIVE ============ */
+        
+        @media (max-width: 1100px) {
+            .stage,
+            .panel {
+                padding: 60px 50px;
+            }
+            .features {
+                padding: 80px 40px;
+            }
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 860px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .stage {
+                padding: 100px 32px 60px;
+                min-height: auto;
+            }
+            .stage h1 {
+                font-size: 44px;
+            }
+            .chat-preview {
+                display: none;
+            }
+            .panel {
+                padding: 50px 32px 70px;
+            }
+            .topbar {
+                padding: 14px 20px;
+            }
+            .topbar nav {
+                display: none;
+            }
+            .features {
+                padding: 70px 24px;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            footer {
+                padding: 30px 24px;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <div class="brand">
+            <img src="LOGO.png" alt="Caesb" />
+            <span class="name">Caesb · <span>Iná</span></span>
+        </div>
+        <nav>
+            <a href="#sobre">Sobre a Iná</a>
+            <a href="#recursos">Recursos</a>
+            <a href="#ajuda">Ajuda</a>
+            <a href="https://www.caesb.df.gov.br" target="_blank" rel="noopener">caesb.df.gov.br</a>
+        </nav>
+        <div class="help">
+            <span class="pulse-dot"></span> Sistema online
+        </div>
+    </header>
+
+    <!-- HERO SPLIT -->
+    <section class="hero">
+
+        <!-- LEFT: IMMERSIVE STAGE -->
+        <div class="stage">
+            <!-- YouTube background (muted, looped). Falls back to gradient+blobs if it fails to load. -->
+            <div class="video-bg" id="videoBg" aria-hidden="true">
+                <iframe id="ytBg"
+                    src="https://www.youtube-nocookie.com/embed/f1w8791XckI?autoplay=1&mute=1&controls=0&loop=1&playlist=f1w8791XckI&playsinline=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&showinfo=0&enablejsapi=1"
+                    title="Iná — vídeo de fundo"
+                    allow="autoplay; encrypted-media"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    loading="lazy"
+                    tabindex="-1"></iframe>
+            </div>
+            <script>
+                (function () {
+                    var wrap = document.getElementById('videoBg');
+                    var ifr = document.getElementById('ytBg');
+                    if (!wrap || !ifr) return;
+                    var ready = false;
+                    // Mark ready once the iframe document loads (no guarantee video plays, but it's loaded).
+                    ifr.addEventListener('load', function () {
+                        ready = true;
+                        wrap.classList.add('is-ready');
+                    });
+                    // Fallback: if it doesn't load in 4s (offline, blocked, ad-blocker), hide and keep the gradient.
+                    setTimeout(function () {
+                        if (!ready) { wrap.parentNode && wrap.parentNode.removeChild(wrap); }
+                    }, 4000);
+                    // Honor reduced-motion users.
+                    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        wrap.parentNode && wrap.parentNode.removeChild(wrap);
+                    }
+                })();
+            </script>
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+            <div class="grid-overlay"></div>
+
+            <div class="stage-content">
+                <h1>
+                    Olá, eu sou a <span class="ai">Iná</span>.
+                </h1>
+                <p class="lead">
+                    Sua assistente digital de autoatendimento da Companhia de Saneamento Ambiental do Distrito Federal. Respostas instantâneas, 24 horas por dia, sem filas.
+                </p>
+                <div class="badges">
+                    <span class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Atendimento 24/7
+          </span>
+                    <span class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L3 7l9 5 9-5-9-5z" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17l9 5 9-5M3 12l9 5 9-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Login seguro Gov.br
+          </span>
+                    <span class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Respostas em segundos
+          </span>
+                </div>
+            </div>
+
+            <!-- CHAT PREVIEW -->
+            <div class="chat-preview">
+                <div class="chat-head">
+                    <div class="chat-avatar"><img src="LOGO.png" alt="Iná" /></div>
+                    <div class="meta">
+                        <strong>Iná · Assistente Caesb</strong>
+                        <span>Online agora</span>
+                    </div>
+                </div>
+                <div class="chat-msg bot">Olá! Sou a Iná 👋 Como posso te ajudar hoje?</div>
+                <div class="chat-msg user">Quero a 2ª via da minha conta de água</div>
+                <div class="chat-msg bot">Claro! Já localizei sua unidade. Quer baixar agora em PDF?</div>
+                <div class="typing">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: LOGIN PANEL -->
+        <div class="panel">
+            <div class="login-card">
+                <div class="welcome">Acesso ao Atendimento</div>
+                <h2>Entre com sua conta gov.br</h2>
+                <p class="sub">
+                    A autenticação é feita pelo serviço unificado do Governo Federal. Use seu CPF e senha do gov.br para acessar a Iná com total segurança.
+                </p>
+
+                <!-- Botão gov.br — spec: componentes-signin/tipo-externo-com-texto -->
+                <br-sign-in id="btn-govbr" type="primary" density="middle" label="Entrar com" entity="gov.br" role="link" tabindex="0" style="cursor:pointer"></br-sign-in>
+                <script>
+                    (function () {
+                        var TARGET = 'https://ina.caesb.df.gov.br';
+                        var btn = document.getElementById('btn-govbr');
+                        if (!btn) return;
+                        var go = function () { window.location.href = TARGET; };
+                        btn.addEventListener('click', go);
+                        btn.addEventListener('keydown', function (e) {
+                            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+                        });
+                    })();
+                </script>
+
+                <p class="legal">
+                    Ao continuar, você concorda com os <a href="#">Termos de Uso</a> e a
+                    <a href="#">Política de Privacidade</a> da Caesb conforme a LGPD.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="recursos">
+        <div class="features-header">
+            <div class="kicker">O que a Iná faz por você</div>
+            <h3>Resolva tudo em um <em>só lugar</em>, sem sair de casa.</h3>
+            <p>Da segunda via à religação do fornecimento — a Iná entende sua solicitação em linguagem natural e te encaminha em segundos.</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h4>2ª via da conta</h4>
+                <p>Gere e baixe a sua fatura em PDF, em até 10 segundos, direto pelo chat.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18" stroke-linecap="round"/><path d="M7 14l4-4 4 4 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h4>Histórico de consumo</h4>
+                <p>Acompanhe o consumo mensal da sua unidade e receba dicas para economizar água.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24" stroke-linecap="round"/></svg>
+                </div>
+                <h4>Falta d'água na região</h4>
+                <p>Consulte interrupções programadas e emergenciais por endereço ou CEP em tempo real.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>
+                </div>
+                <h4>Negociação de débitos</h4>
+                <p>Parcele faturas em aberto e gere boletos atualizados de forma rápida e segura.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h4>Religação & vistoria</h4>
+                <p>Solicite religação do fornecimento ou abertura de vistoria técnica em poucos cliques.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-linejoin="round"/></svg>
+                </div>
+                <h4>Atendimento humano</h4>
+                <p>Casos complexos? A Iná transfere você para um atendente especializado sem perder o contexto.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="foot-brand">
+            <img src="LOGO.png" alt="Caesb" /> Caesb · Iná Atendimento Inteligente
+        </div>
+        <div class="foot-links">
+            <a href="#">Acessibilidade</a>
+            <a href="#">LGPD</a>
+            <a href="#">Ouvidoria</a>
+            <a href="#">Contato 195</a>
+        </div>
+        <div>© 2026 Companhia de Saneamento Ambiental do DF</div>
+    </footer>
+
+</body>
+
+</html>
