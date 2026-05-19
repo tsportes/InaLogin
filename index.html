@@ -70,7 +70,7 @@
             --muted: #6B7B8C;
             --bg: #F4F8FC;
             --white: #ffffff;
-            --govbr-blue: #1351B4;
+            --govbr-blue: #1351b4;
             --govbr-yellow: #FFCD07;
             --radius: 18px;
             --shadow: 0 30px 60px -20px rgba(10, 79, 135, 0.25);
@@ -218,7 +218,7 @@
             border: 0;
             aspect-ratio: 16 / 9;
             min-width: 100%;
-            min-height: calc(100% / 0.80);
+            min-height: calc(100% / 0.78);
             pointer-events: none;
         }
         
@@ -581,24 +581,38 @@
         /* GovBr button */
         
         .gov-btn {
-            display: flex;
+            --button-radius: 100em;
+            --button-xsmall: 24px;
+            --button-small: 32px;
+            --button-medium: 40px;
+            --button-large: 48px;
+            --button-size: 40px;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 18px 24px;
-            background: var(--govbr-blue);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            border-radius: 14px;
-            border: none;
+            background-color: #1351b4;
+            border: 0;
+            border-radius: 100em;
+            color: #1651b4;
             cursor: pointer;
-            transition: transform .15s, box-shadow .25s, background .2s;
-            box-shadow: 0 14px 30px -10px rgba(19, 81, 180, 0.55);
-            position: relative;
+            display: inline-flex;
+            font-size: 16.8px;
+            font-weight: 600;
+            height: 40px;
+            justify-content: center;
             overflow: hidden;
+            padding: 0 24px;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: auto;
+            --background: #f8f8f8;
+            --sign-in-img: 20px;
+            background-color: #f8f8f8;
+            padding: 0 16px;
+        }
+        
+        .gov-btn:not(:disabled) {
+            --focus-offset: 4px;
         }
         
         .gov-btn::before {
@@ -1129,7 +1143,10 @@
                 new YT.Player(iframe.id, {
                     events: {
                         onReady: function(e) {
-                            try { e.target.mute(); e.target.playVideo(); } catch (err) {}
+                            try {
+                                e.target.mute();
+                                e.target.playVideo();
+                            } catch (err) {}
                         },
                         onStateChange: function(e) {
                             if (e.data === YT.PlayerState.PLAYING) reveal();
